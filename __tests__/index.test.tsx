@@ -50,3 +50,22 @@ test('Fails: Unable to find node on an unmounted component.', async () => {
 
   expect(screen).toHavePathname('/foo');
 });
+
+test('Debug', async () => {
+  const user = userEvent.setup();
+
+  renderRouter({
+    index: Index,
+    '/foo': Foo,
+  });
+
+  try {
+    await user.press(screen.getByRole('link'));
+  } catch (error) {
+    console.log(error);
+  }
+
+  screen.debug();
+
+  expect(screen).toHavePathname('/foo');
+});
